@@ -25,25 +25,48 @@ public class StudentController {
 	@Autowired
 	private StudentServiceRepo studentservicerepo;
 	
-@GetMapping("/result")
-public List<StudentAnswerDomian> StudentResultChecker() {
-			return studentservicerepo.StudentResult();	
-			}
+
 
 @GetMapping("/reviewanswer/{id}")
 public Optional<StudentAnswerDomian> ReviewAnswer(@PathVariable Integer id) {
 			return studentservicerepo.ReviewAnswer(id);	
 			}
 
-@RequestMapping(path = "/reviewsubmitedans/{studentid_pk}/{assignmenqtidstanswer_fk}/{questionid_pk}", method = RequestMethod.GET)
-public ResponseEntity<List<StudentAnswerDomian>> getBook(@PathVariable Integer studentid_pk, @PathVariable  Integer assignmenqtidstanswer_fk, @PathVariable  Integer questionid_pk) {	
+
+
+
+
+//********************************GET STUDENT ANSWER AND CORRECT ANSWER**********************
+
+@RequestMapping(path = "/reviewstudentansweronquestion/{studentid_pk}/{assignmenqtidstanswer_fk}/{questionid_pk}", method = RequestMethod.GET)
+public ResponseEntity<List<StudentAnswerDomian>> getAnswerAndQuestion(@PathVariable Integer studentid_pk, @PathVariable  Integer assignmenqtidstanswer_fk, @PathVariable  Integer questionid_pk) {	
 	return new ResponseEntity<> (studentservicerepo.Getanswers(studentid_pk,assignmenqtidstanswer_fk,questionid_pk),HttpStatus.OK);   
 }
 
-@RequestMapping(path = "/reviewquecstions/{assignmentid}/{questionno}", method = RequestMethod.GET)
-public List<QuestionDomain> getQuestions( @PathVariable  Integer assignmentid, @PathVariable  Integer questionno) {
-	return studentservicerepo.GetQuecstionAns(assignmentid,questionno);
+//*****************************CHECK STUDENT ANSWER RIGHT OR WRONG****************************
+
+@RequestMapping(path = "/checkanswer/{studentid_pk}/{assignmenqtidstanswer_fk}/{questionid_pk}", method = RequestMethod.GET)
+public String checkAnswer( @PathVariable Integer studentid_pk, @PathVariable  Integer assignmenqtidstanswer_fk, @PathVariable  Integer questionid_pk) {
+	return studentservicerepo.GetQuecstionAns(studentid_pk,assignmenqtidstanswer_fk,questionid_pk);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

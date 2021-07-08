@@ -19,7 +19,9 @@ public interface StudentServiceRepo {
 
 	List<StudentAnswerDomian> Getanswers(Integer studentid_pk, Integer assignmenqtidstanswer_fk, Integer questionid_pk);
 
-	List<QuestionDomain> GetQuecstionAns(Integer assignmentid, Integer questionno);
+	String GetQuecstionAns(Integer studentid_pk, Integer assignmenqtidstanswer_fk, Integer questionid_pk);
+
+
 
 	//Object Getanswers(Integer studentid, Integer assignmentid, Integer questionid);
 

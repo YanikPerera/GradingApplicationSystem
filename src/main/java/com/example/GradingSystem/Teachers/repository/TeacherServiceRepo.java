@@ -11,8 +11,6 @@ public interface TeacherServiceRepo {
 
 	String SaveAssignment(AssignmentsDomain addAssignment);
 
-	List<AssignmentsDomain> AllAssignments();
-
 	List<QuestionDomain> Questionfunc();
 
 	String SaveQuesction(QuestionDomain addQuecstion);
@@ -20,6 +18,10 @@ public interface TeacherServiceRepo {
 	String StudentGrade(Integer studentid, Integer assignmentid);
 
 	List<QuestionDomain> StaticAnswer();
+
+	String GetStaticOnAnswer(Integer studentid_pk, Integer assignmenqtidstanswer_fk);
+
+	String GetGradeOnAssignment(Integer studentid_pk, Integer assignmenqtidstanswer_fk);
 
 
 }

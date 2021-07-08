@@ -4,25 +4,88 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction.COUNT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.GradingSystem.Students.domian.StudentAnswerDomian;
 import com.example.GradingSystem.Teachers.domain.AssignmentsDomain;
 import com.example.GradingSystem.Teachers.domain.QuestionDomain;
 import com.example.GradingSystem.Teachers.repository.QuestionRepository;
-import com.example.GradingSystem.Teachers.repository.TeacherRepository;
+import com.example.GradingSystem.Teachers.repository.StudentAssignmentResultRepository;
 import com.example.GradingSystem.Teachers.repository.TeacherServiceRepo;
-
-import ExceptionHandling.NotSavedException;
 
 @Service
 public class TeacherService implements TeacherServiceRepo {
 	
-	@Autowired
-	private TeacherRepository teacherrepository;
+
 	@Autowired
 	private QuestionRepository questionrepository;
+	
+	@Autowired
+	private StudentAssignmentResultRepository studentassignmentresultrepository;
 
 	
+//********************************TEACHER GET STATIC ON ANSWER************************************		
+	
+	@Override
+	public String GetStaticOnAnswer(Integer studentid_pk, Integer assignmenqtidstanswer_fk) {
+		
+		StudentAnswerDomian allanswers = studentassignmentresultrepository.findByAnsweridAndStudentid(studentid_pk,assignmenqtidstanswer_fk);
+		// TODO Auto-generated method stub
+		
+		//return COUNT(allanswers);
+		
+		return null;
+	}
+	
+//********************************TEACHER GET GRADE FOR THE ASSIGNMENT************************************	
+
+	@Override
+	public String GetGradeOnAssignment(Integer studentid_pk, Integer assignmenqtidstanswer_fk) {
+		
+		StudentAnswerDomian allanswerss = studentassignmentresultrepository.findByGrades(studentid_pk,assignmenqtidstanswer_fk);
+		// TODO Auto-generated method stub
+		
+		if(allanswerss.getAnswer()>3) {
+			
+			return "Pass";
+		}
+		return "Fail";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	@Override
 	public List<QuestionDomain> Questionfunc() {
 		
@@ -39,15 +102,6 @@ public class TeacherService implements TeacherServiceRepo {
 	}
 
 
-	@Override
-	public List<AssignmentsDomain> AllAssignments() {
-		
-// here we can get users as a list by using List<TeacherDomain>
-	List<AssignmentsDomain> allassignment = teacherrepository.findAll();
-	
-	return allassignment;
-	
-	}
 
 
 	

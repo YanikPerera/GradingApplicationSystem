@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.GradingSystem.Students.repository.StudentRepository;
 import com.example.GradingSystem.Teachers.domain.AssignmentsDomain;
 import com.example.GradingSystem.Teachers.domain.QuestionDomain;
 import com.example.GradingSystem.Teachers.domain.TeacherDomain;
@@ -24,12 +25,29 @@ public class TeacherController {
 	@Autowired
 	private TeacherServiceRepo teacherservicerepo;
 	
-@GetMapping("/allassignment")	
-public List<AssignmentsDomain> AllAssignments() {
-	 
-	return teacherservicerepo.AllAssignments();
 
+	
+	
+//********************************TEACHER GET STATIC ON ANSWER************************************	
+	
+	@RequestMapping(path = "/staticonassignment/{studentid_pk}/{assignmenqtidstanswer_fk}", method = RequestMethod.GET)
+	public String staticonanswer( @PathVariable Integer studentid_pk, @PathVariable  Integer assignmenqtidstanswer_fk) {
+		return teacherservicerepo.GetStaticOnAnswer(studentid_pk,assignmenqtidstanswer_fk);
 	}
+	
+//********************************TEACHER GET GRADE FOR THE ASSIGNMENT************************************	
+	
+		@RequestMapping(path = "/gradeonassignment/{studentid_pk}/{assignmenqtidstanswer_fk}", method = RequestMethod.GET)
+		public String gradeonassignment( @PathVariable Integer studentid_pk, @PathVariable  Integer assignmenqtidstanswer_fk) {
+			return teacherservicerepo.GetGradeOnAssignment(studentid_pk,assignmenqtidstanswer_fk);
+		}
+	
+
+		
+		
+		
+		
+
 
 
 @PostMapping("/addassignment")
